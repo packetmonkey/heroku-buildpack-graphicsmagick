@@ -39,6 +39,16 @@ function package_download() {
   curl $package -s -o - | tar xzf - -C $location
 }
 
+function gm_package_download() {
+  local remote location
+  remote="$1"
+  location="$2"
+
+  mkdir -p $location
+  package="https://s3.amazonaws.com/heroku-slug-binaries/graphicsmagick-1.3.21.tgz"
+  curl $package -s -o - | tar xzf - -C $location
+}
+
 echo "Installing zlib $ZLIB_VERSION" | arrow
 
 # we need this directory, it's our destination
@@ -95,7 +105,7 @@ mkdir -p $gm_lib_path
 
 # vendor directories
 VENDORED_GRAPHICSMAGICK="$(mktmpdir graphicsmagick)"
-package_download "${REMOTE_PATH}" "${VENDORED_GRAPHICSMAGICK}"
+gm_package_download "${REMOTE_PATH}" "${VENDORED_GRAPHICSMAGICK}"
 
 mkdir -p "$BUILD_DIR/bin/"
 cp $VENDORED_GRAPHICSMAGICK/bin/* "$BUILD_DIR/bin/"
