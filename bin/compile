@@ -71,7 +71,7 @@ package_download "${ZLIB_REMOTE_PATH}" "${VENDORED_ZLIB}"
 
 cp -R $VENDORED_ZLIB/* $zlib_lib_path
 
-echo "Installing libpng $LIBPNG_VERSION" | arrow
+echo "Installing libpng 1.6.17" | arrow
 
 # we need this directory, it's our destination
 libpng_lib_path=$BUILD_DIR/vendor/libpng
@@ -79,7 +79,7 @@ mkdir -p $libpng_lib_path
 
 # vendor directories
 VENDORED_LIBPNG="$(mktmpdir libpng)"
-libpng_package_download "${REMOTE_PATH}" "${VENDORED_GRAPHICSMAGICK}"
+libpng_package_download "${REMOTE_PATH}" "${VENDORED_LIBPNG}"
 
 cp -R $VENDORED_LIBPNG/* $libpng_lib_path
 
