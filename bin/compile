@@ -49,6 +49,16 @@ function gm_package_download() {
   curl $package -s -o - | tar xzf - -C $location
 }
 
+function libpng_package_download() {
+  local remote location
+  remote="$1"
+  location="$2"
+
+  mkdir -p $location
+  package="https://s3.amazonaws.com/heroku-slug-binaries/libpng-1.6.17.tgz"
+  curl $package -s -o - | tar xzf - -C $location
+}
+
 echo "Installing zlib $ZLIB_VERSION" | arrow
 
 # we need this directory, it's our destination
@@ -69,7 +79,7 @@ mkdir -p $libpng_lib_path
 
 # vendor directories
 VENDORED_LIBPNG="$(mktmpdir libpng)"
-package_download "${LIBPNG_REMOTE_PATH}" "${VENDORED_LIBPNG}"
+libpng_package_download "${REMOTE_PATH}" "${VENDORED_GRAPHICSMAGICK}"
 
 cp -R $VENDORED_LIBPNG/* $libpng_lib_path
 
